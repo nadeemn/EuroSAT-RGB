@@ -1,15 +1,14 @@
 import os
 from sklearn.model_selection import train_test_split
 
-dataset_root = r'D:\EuroSAT_RGB'
+dataset_root = r'D:\EuroSAT_MS'
 
 def get_image_path(class_folder):
     image_paths = []
 
     for root, dirs, files in os.walk(class_folder):
-        print(dirs)
         for file in files:
-            if file.endswith(('.jpg', 'jpeg', '.png')):
+            if file.endswith(('.jpg', 'jpeg', '.png', '.tif')):
                 image_paths.append(os.path.relpath(os.path.join(root, file), start= dataset_root))
 
     return image_paths
@@ -48,7 +47,7 @@ if __name__== "__main__":
     current_file = os.path.abspath(__file__)
     project_root_directory = os.path.dirname(current_file)
 
-    root = os.path.join(dataset_root, 'EuroSAT_RGB')
+    root = os.path.join(dataset_root, 'EuroSAT_MS')
 
     class_names = [class_name for class_name in os.listdir(root)
                     if os.path.isdir(os.path.join(root, class_name))]
