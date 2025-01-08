@@ -1,7 +1,5 @@
 import torch
 import torch.nn as nn
-from torchvision.models import resnet18, ResNet18_Weights
-from eurosatms_dataset import load_and_preprocess
 
 class FeatureExtractor(nn.Module):
     def __init__(self, base_model):
@@ -40,12 +38,3 @@ class MyNet(nn.Module):
         output = self.classifier(fused_feature)
         return output
 
-if __name__ == "__main__":
-    sample_path = r'D:\EuroSAT_MS\EuroSAT_MS\AnnualCrop\AnnualCrop_1.tif'
-    single_image = load_and_preprocess(sample_path)
-
-    base_model = resnet18(weights = ResNet18_Weights.DEFAULT)
-
-    model = MyNet(10, base_model)
-
-    output = model(single_image)

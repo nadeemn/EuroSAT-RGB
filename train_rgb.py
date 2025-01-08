@@ -48,7 +48,7 @@ def main(root_dir):
     plot_tpr(results=results)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Model testing")
+    parser = argparse.ArgumentParser(description="Model Training")
     parser.add_argument('--root_dir', type=str, required=True, help="""Root Directory of the dataset. 
                         (No need to give the entire directory. Only parent directory is enough.)
                         For e.g. if the file path is: D:\EuroSAT_MS\EuroSAT_MS\AnnualCrop\AnnualCrop_1.tif.
