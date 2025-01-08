@@ -1,4 +1,5 @@
 import torch
+import argparse
 import os
 from torch.utils.data import DataLoader
 from utils.transforms import get_transforms
@@ -7,8 +8,8 @@ from models.resnet18_model import ResNet18
 from scripts.train import train_model
 from utils.utils import plot_tpr, plot_validation
 
-def main():
-    dataset_root = r'D:\EuroSAT_RGB'
+def main(root_dir):
+    dataset_root = root_dir
     splits_dir = './splits'
     torch.manual_seed(29122024)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -24,6 +25,7 @@ def main():
         datasets.append((train_dataset, val_dataset))
 
     results = []
+    best_accuracy = 0.0
 
     for i, (train, val) in enumerate(datasets):
 
@@ -37,8 +39,8 @@ def main():
         criterion = torch.nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-        val_acc, class_tpr = train_model(model, train_loader, val_loader,
-                                        device, criterion, optimizer)
+        val_acc, class_tpr, best_accuracy = train_model(model, train_loader, val_loader,
+                                        device, criterion, optimizer, best_accuracy)
 
         results.append((val_acc, class_tpr))
 
@@ -46,4 +48,11 @@ def main():
     plot_tpr(results=results)
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Model testing")
+    parser.add_argument('--root_dir', type=str, required=True, help="""Root Directory of the dataset. 
+                        (No need to give the entire directory. Only parent directory is enough.)
+                        For e.g. if the file path is: D:\EuroSAT_MS\EuroSAT_MS\AnnualCrop\AnnualCrop_1.tif.
+                        Give the root as D:\EuroSAT_MS
+                        """ )
+    args = parser.parse_args()
+    main(root_dir = args.root_dir)

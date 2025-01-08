@@ -1,4 +1,5 @@
 import torch
+import argparse
 import os
 from torch.utils.data import DataLoader
 from utils.dataset import EuroSATDataset
@@ -7,8 +8,8 @@ from torchvision import transforms
 from utils.utils import load_model, save_test_results, plot_top_bottom_images
 from sklearn.metrics import classification_report
 
-def test():
-    dataset_root = r'D:\EuroSAT_RGB'
+def test(root_dir, save_logits=False):
+    dataset_root = root_dir
     splits_dir = './splits'
     results_dir = './test_results'
     os.makedirs(results_dir, exist_ok=True)
@@ -25,7 +26,7 @@ def test():
 
     model = load_model('best_model.pth', len(class_names), device)
 
-    all_preds, all_labels, class_scores = evaluate_model(model, test_loader, device, class_names, save_logits=False)
+    all_preds, all_labels, class_scores = evaluate_model(model, test_loader, device, class_names, save_logits=save_logits)
 
     report = classification_report(all_labels, all_preds, target_names = class_names, output_dict=True)
 
@@ -33,4 +34,12 @@ def test():
     plot_top_bottom_images(test_dataset, class_scores, class_names, num_classes=3, save_dir=results_dir)
 
 if __name__ == "__main__":
-    test()
+    parser = argparse.ArgumentParser(description="Model testing")
+    parser.add_argument('--root_dir', type=str, required=True, help="""Root Directory of the dataset. 
+                        (No need to give the entire directory. Only parent directory is enough.)
+                        For e.g. if the file path is: D:\EuroSAT_MS\EuroSAT_MS\AnnualCrop\AnnualCrop_1.tif.
+                        Give the root as D:\EuroSAT_MS
+                        """ )
+    parser.add_argument('--save_logits', type=bool, required=False, help="If you want to save the logits. Give i/p as true")
+    args = parser.parse_args()
+    test(root_dir=args.root_dir, save_logits = args.save_logits)

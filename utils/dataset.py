@@ -51,8 +51,27 @@ class EuroSATMS_Dataset(Dataset):
         label = self.class_to_idx[label_name]
 
         if self.transform is not None:
-            image = self.transform(image)
-        
+
+            if isinstance(self.transform, transforms.Compose):
+                for t in self.transform.transforms:
+                    if isinstance(t, (transforms.RandomHorizontalFlip, transforms.RandomVerticalFlip, transforms.RandomAffine)):
+                        image = t(image)
+
+            rgb_channels = image[1:4]
+            transformed_rgb = rgb_channels
+
+            if isinstance(self.transform, transforms.Compose):
+                for t in self.transform.transforms:
+                    if isinstance(t, transforms.ColorJitter):
+                        transformed_rgb = t(transformed_rgb)
+
+            final_tensor = torch.zeros_like(image)
+            final_tensor[:1] = image[:1]
+            final_tensor[4:] = image[4:]
+            final_tensor[1:4] = transformed_rgb
+
+            return final_tensor, label
+
         return image, label
 
     def get_class_names(self):
