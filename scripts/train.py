@@ -4,8 +4,8 @@ from sklearn.metrics import classification_report
 dataset_root = r'D:\EuroSAT_RGB'
 splits_dir = './splits'
 
-def train_model(model, train_loader, val_loader, device, criterion, optimizer, num_epochs=10):
-    best_accuracy = 0.0
+def train_model(model, train_loader, val_loader, device, criterion, optimizer, best_accuracy, num_epochs=10):
+    best_accuracy = best_accuracy
     validation_accuracies = []
     class_tpr_over_epochs = {class_name: [] for class_name in train_loader.dataset.class_names}
 
@@ -17,9 +17,10 @@ def train_model(model, train_loader, val_loader, device, criterion, optimizer, n
 
         for batch, (images, labels) in enumerate(train_loader):
             images, labels = images.to(device), labels.to(device)
-            optimizer.zero_grad()
             outputs = model(images)
+
             loss = criterion(outputs, labels)
+            optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
@@ -66,4 +67,4 @@ def train_model(model, train_loader, val_loader, device, criterion, optimizer, n
         print(f'Epoch {epoch + 1}: Train Loss={running_loss/len(train_loader):.4f},'
                 f'Train Acc = {100 * correct / total:.2f}%, Val Acc = {val_acc:.2f}%')
 
-    return validation_accuracies, class_tpr_over_epochs
+    return validation_accuracies, class_tpr_over_epochs, best_accuracy
