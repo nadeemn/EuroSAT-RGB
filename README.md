@@ -102,13 +102,13 @@ Trains and evaluates the model on multispectral images.
 ![True Positive Rate (TPR)](test_results/Figure_4.png)
 
 - **Top and Bottom 5 Images**:
-  - For the classes **AnnualCrop**, **Forest**, and **Herbaceous Vegetation**.
-    ![Top 5 - Annual Crop class](test_results/AnnualCrop_top.png)
-    ![Bottom 5 - Annual Crop class](test_results/AnnualCrop_bottom.png)
-    ![Top 5 - Forest class](test_results/Forest_top.png)
-    ![Bottom 5 - Forest class](test_results/Forest_bottom.png)
-    ![Top 5 -  Herbaceous Vegetation class](test_results/HerbaceousVegetation_top.png)
-    ![Bottom 5 - Herbaceous Vegetation class](test_results/HerbaceousVegetation_bottom.png)
+
+![Top 5 - Annual Crop class](test_results/AnnualCrop_top.png)
+![Bottom 5 - Annual Crop class](test_results/AnnualCrop_bottom.png)
+![Top 5 - Forest class](test_results/Forest_top.png)
+![Bottom 5 - Forest class](test_results/Forest_bottom.png)
+![Top 5 -  Herbaceous Vegetation class](test_results/HerbaceousVegetation_top.png)
+![Bottom 5 - Herbaceous Vegetation class](test_results/HerbaceousVegetation_bottom.png)
 
 ---
 
