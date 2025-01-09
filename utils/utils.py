@@ -24,7 +24,7 @@ def load_mynet_model(model_path, num_classes, device):
     model = mynet.to(device)
     return model
 
-def save_and_load_logits(logits, save_mode = True, logits_path='test_logits.pt'):
+def save_and_load_logits(logits, logits_path, save_mode = True):
     """ Save or compare logits for reproduction testing"""
 
     if save_mode:

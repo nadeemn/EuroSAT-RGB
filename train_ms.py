@@ -42,7 +42,7 @@ def main(root_dir):
         optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
         val_acc, class_tpr, best_accuracy = train_model(model, train_loader, val_loader,
-                                        device, criterion, optimizer, best_accuracy)
+                                        device, criterion, optimizer, best_accuracy, best_model = 'best_model_ms')
 
         results.append((val_acc, class_tpr))
 
