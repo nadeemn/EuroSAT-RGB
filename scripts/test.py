@@ -1,7 +1,7 @@
 import torch
 from utils.utils import save_and_load_logits
 
-def evaluate_model(model, test_loader, device, class_names, save_logits=False):
+def evaluate_model(model, test_loader, device, class_names, logits_path, save_logits=False, ):
     """Evaluate model on the test set and return prediction, labels and logits."""
 
     model.eval()
@@ -31,7 +31,7 @@ def evaluate_model(model, test_loader, device, class_names, save_logits=False):
                 })
     
     all_logits = torch.cat(all_logits, dim = 0)
-    save_and_load_logits(all_logits, save_mode = save_logits)
+    save_and_load_logits(all_logits, logits_path, save_mode = save_logits)
 
     return all_preds, all_labels, class_scores
 

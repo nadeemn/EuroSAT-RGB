@@ -1,15 +1,12 @@
 import torch
 from sklearn.metrics import classification_report
 
-dataset_root = r'D:\EuroSAT_RGB'
-splits_dir = './splits'
-
-def train_model(model, train_loader, val_loader, device, criterion, optimizer, best_accuracy, num_epochs=10):
+def train_model(model, train_loader, val_loader, device, criterion, optimizer, best_accuracy, best_model, num_epochs=10):
     best_accuracy = best_accuracy
     validation_accuracies = []
     class_tpr_over_epochs = {class_name: [] for class_name in train_loader.dataset.class_names}
 
-    for epoch in range(10):
+    for epoch in range(num_epochs):
         # Training phase
         model.train()
         correct, total = 0,0
@@ -57,7 +54,7 @@ def train_model(model, train_loader, val_loader, device, criterion, optimizer, b
                 'model_state_dict': model.state_dict(),
                 'epoch': epoch,
                 'accuracy': best_accuracy
-            }, 'best_model.pth')
+            }, f'{best_model}.pth')
 
         report = classification_report(val_labels, val_preds, target_names = val_loader.dataset.class_names, output_dict = True, zero_division=0)
 

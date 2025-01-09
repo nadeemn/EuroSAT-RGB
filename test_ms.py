@@ -21,9 +21,9 @@ def test(root_dir, save_logits=False):
 
     class_names = test_dataset.class_names
 
-    model = load_mynet_model('best_model.pth', len(class_names), device)
+    model = load_mynet_model('best_model_ms.pth', len(class_names), device)
 
-    all_preds, all_labels, class_scores = evaluate_model(model, test_loader, device, class_names, save_logits=save_logits)
+    all_preds, all_labels, class_scores = evaluate_model(model, test_loader, device, class_names, logits_path="test_logits_ms.pt", save_logits=save_logits)
 
     report = classification_report(all_labels, all_preds, target_names = class_names, output_dict=True)
 
