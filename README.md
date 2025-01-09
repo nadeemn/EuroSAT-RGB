@@ -81,30 +81,34 @@ Trains and evaluates the model on multispectral images.
 
 ## Outputs and Plots
 
-- **Validation Accuracy**:
+- Task 2: Accuracy and TPR per class for RGB images.
 
-  - Task 2: Accuracy and TPR per class for RGB images.
+### Validation Accuracy Plot
 
-  ### Validation Accuracy Plot
+![Validation Accuracy](test_results/Figure_1.png)
 
-  ![Validation Accuracy](test_results/Figure_1.png)
+### TPR Plot
 
-  ### TPR Plot
+![True Positive Rate (TPR)](test_results/Figure_2.png)
 
-  ![True Positive Rate (TPR)](test_results/Figure_2.png)
+- Task 3: Accuracy and TPR per class for multispectral images.
 
-  - Task 3: Accuracy and TPR per class for multispectral images.
+### Validation Accuracy Plot
 
-  ### Validation Accuracy Plot
+![Validation Accuracy](test_results/Figure_3.png)
 
-  ![Validation Accuracy](test_results/Figure_3.png)
+### TPR Plot
 
-  ### TPR Plot
-
-  ![True Positive Rate (TPR)](test_results/Figure_4.png)
+![True Positive Rate (TPR)](test_results/Figure_4.png)
 
 - **Top and Bottom 5 Images**:
-  - For the classes **AnnualCrop**, **Forest**, and **Herbaceous Vegetation**.
+
+![Top 5 - Annual Crop class](test_results/AnnualCrop_top.png)
+![Bottom 5 - Annual Crop class](test_results/AnnualCrop_bottom.png)
+![Top 5 - Forest class](test_results/Forest_top.png)
+![Bottom 5 - Forest class](test_results/Forest_bottom.png)
+![Top 5 -  Herbaceous Vegetation class](test_results/HerbaceousVegetation_top.png)
+![Bottom 5 - Herbaceous Vegetation class](test_results/HerbaceousVegetation_bottom.png)
 
 ---
 
